@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/syntheseFragment">
+
+    <fragment
+        android:id="@+id/syntheseFragment"
+        android:name="com.helha.main_menu_activity.SyntheseFragment"
+        android:label="Synthese"
+        tools:layout="@layout/fragment_synthese" />
+    <fragment
+        android:id="@+id/ajouterFragment"
+        android:name="com.helha.main_menu_activity.AjouterFragment"
+        android:label="Ajouter"
+        tools:layout="@layout/fragment_ajouter" />
+    <fragment
+        android:id="@+id/envoyerFragment"
+        android:name="com.helha.main_menu_activity.EnvoyerFragment"
+        android:label="Envoyer"
+        tools:layout="@layout/fragment_envoyer" />
+    <fragment
+        android:id="@+id/recevoirFragment"
+        android:name="com.helha.main_menu_activity.RecevoirFragment"
+        android:label="Recevoir"
+        tools:layout="@layout/fragment_recevoir" />
+    <fragment
+        android:id="@+id/goalFragment"
+        android:name="com.helha.main_menu_activity.GoalFragment"
+        android:label="Goal"
+        tools:layout="@layout/fragment_goal" />
+    <fragment
+        android:id="@+id/historiqueFragment"
+        android:name="com.helha.main_menu_activity.HistoriqueFragment"
+        android:label="Historique"
+        tools:layout="@layout/fragment_historique" />
+    <fragment
+        android:id="@+id/creeRentreeFragment"
+        android:name="com.helha.main_menu_activity.CreeRentreeFragment"
+        android:label="Cree_rentree"
+        tools:layout="@layout/fragment_cree_rentree" />
+    <fragment
+        android:id="@+id/creeDepenseFragment"
+        android:name="com.helha.main_menu_activity.CreeDepenseFragment"
+        android:label="Cree_depense"
+        tools:layout="@layout/fragment_cree_depense" />
+    <fragment
+        android:id="@+id/parametreFragment"
+        android:name="com.helha.main_menu_activity.ParametreFragment"
+        android:label="Parametre"
+        tools:layout="@layout/fragment_parametre" />
+</navigation>
