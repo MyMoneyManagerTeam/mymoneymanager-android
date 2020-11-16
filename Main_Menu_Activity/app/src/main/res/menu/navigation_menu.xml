@@ -47,5 +47,5 @@
     </item>
     <item
         android:id="@+id/parametreFragment"
-        android:title="Paramètre"/>
+        android:title="Paramètres"/>
 </menu>
