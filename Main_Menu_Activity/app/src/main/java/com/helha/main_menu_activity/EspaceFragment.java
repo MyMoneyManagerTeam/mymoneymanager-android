@@ -11,11 +11,13 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GoalFragment extends Fragment {
+public class EspaceFragment extends Fragment {
 
-    public GoalFragment() {
+    public EspaceFragment() {
         // Required empty public constructor
     }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,6 @@ public class GoalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_goal, container, false);
+        return inflater.inflate(R.layout.fragment_espace, container, false);
     }
 }

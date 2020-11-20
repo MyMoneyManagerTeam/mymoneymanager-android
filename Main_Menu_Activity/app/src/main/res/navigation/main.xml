@@ -11,11 +11,6 @@
         android:label="Synthese"
         tools:layout="@layout/fragment_synthese" />
     <fragment
-        android:id="@+id/ajouterFragment"
-        android:name="com.helha.main_menu_activity.AjouterFragment"
-        android:label="Ajouter"
-        tools:layout="@layout/fragment_ajouter" />
-    <fragment
         android:id="@+id/envoyerFragment"
         android:name="com.helha.main_menu_activity.EnvoyerFragment"
         android:label="Envoyer"
@@ -50,4 +45,9 @@
         android:name="com.helha.main_menu_activity.ParametreFragment"
         android:label="Parametre"
         tools:layout="@layout/fragment_parametre" />
+    <fragment
+        android:id="@+id/espaceFragment"
+        android:name="com.helha.main_menu_activity.EspaceFragment"
+        android:label="fragment_espace"
+        tools:layout="@layout/fragment_espace" />
 </navigation>

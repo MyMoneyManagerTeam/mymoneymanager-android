@@ -9,14 +9,13 @@ import android.view.View;
 public class Connection_Activity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection_);
     }
 
-    public void GoToActivitySignIn(View view) {
+    public void GoToActivitySign(View view) {
         Intent intent = new Intent(Connection_Activity.this, Sign_In_Activity.class);
-
         startActivity(intent);
     }
 }

@@ -4,16 +4,11 @@
     <item
         android:id="@+id/syntheseFragment"
         android:title="Synthèse"/>
-    <item android:title="Mes espaces">
-        <menu>
-            <item
-                android:id="@+id/espace1"
-                android:title="Espace1" />
-            <item
-                android:id="@+id/ajouterFragment"
-                android:title="Ajouter Espace" />
-        </menu>
-    </item>
+    <item
+        android:id="@+id/espaceFragment"
+        android:title="Mes Espaces" />
+
+
     <item android:title="Gérer">
     <menu>
         <item
