@@ -30,7 +30,9 @@ public class Sign_In_Activity extends AppCompatActivity {
                     public void run() {
                         loadingDialog.dismissDialog();
                         //Test sur les données de la base de donnée
+                        //********** START ********
                         GoToActivityHome();
+                        //*********** END *********
                     }
                 }, 5000);
             }

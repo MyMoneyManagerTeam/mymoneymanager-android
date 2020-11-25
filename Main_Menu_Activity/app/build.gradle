@@ -10,6 +10,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -45,5 +46,12 @@ dependencies {
     //librairie pour la simplification des permissions
     implementation 'com.karumi:dexter:6.2.2'
 
+    //librairie pour créer des cartes dans le layout synthèse
+    implementation "androidx.cardview:cardview:1.0.0"
+
+    //librairie pour la création de graphique
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+
+    implementation 'com.android.support:multidex:1.0.3'
 
 }

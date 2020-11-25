@@ -27,17 +27,6 @@
             <item
                 android:id="@+id/historiqueFragment"
                 android:title="Mon historique"/>
-
-        </menu>
-    </item>
-    <item android:title="Menu simulation">
-        <menu>
-            <item
-                android:id="@+id/creeRentreeFragment"
-                android:title="Créer une rentrée d'argent"/>
-            <item
-                android:id="@+id/creeDepenseFragment"
-                android:title="Créer une dépense"/>
         </menu>
     </item>
     <item

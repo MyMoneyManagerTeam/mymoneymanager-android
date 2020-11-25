@@ -1,16 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SyntheseFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Synthèse"
-        android:layout_gravity="center"
-        android:textSize="30sp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="2dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title_synthèse"
+            android:layout_width="256dp"
+            android:layout_height="86dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:text="Compte rendu du compte"
+            android:textAlignment="center"
+            android:textColor="@color/ic_launcher_background"
+            android:textSize="35dp" />
+
+        <com.anychart.AnyChartView
+            android:id="@+id/bar_graph"
+            android:layout_width="350dp"
+            android:layout_height="292dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1" />
+
+        <com.anychart.AnyChartView
+            android:id="@+id/circle_graph"
+            android:layout_width="match_parent"
+            android:layout_height="261dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_marginBottom="20dp"/>
+    </LinearLayout>
+</ScrollView>

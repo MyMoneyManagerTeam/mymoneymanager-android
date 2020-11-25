@@ -61,7 +61,13 @@ public class EnvoyerFragment extends Fragment {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
+                        // changer pour rentrer valeur dans la db
+                        // RETRAIT ARGENT SUR LE COMPTE CREDITEUR
+                        // AJOUT ARGENT SUR LE COMPTE DEBITEUR
+                        //******* START *******
                         resultdata.setText(result.getText());
+                        //******** END *********
                     }
                 });
             }

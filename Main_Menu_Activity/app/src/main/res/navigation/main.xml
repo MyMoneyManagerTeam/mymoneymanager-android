@@ -31,16 +31,6 @@
         android:label="Historique"
         tools:layout="@layout/fragment_historique" />
     <fragment
-        android:id="@+id/creeRentreeFragment"
-        android:name="com.helha.main_menu_activity.CreeRentreeFragment"
-        android:label="Cree_rentree"
-        tools:layout="@layout/fragment_cree_rentree" />
-    <fragment
-        android:id="@+id/creeDepenseFragment"
-        android:name="com.helha.main_menu_activity.CreeDepenseFragment"
-        android:label="Cree_depense"
-        tools:layout="@layout/fragment_cree_depense" />
-    <fragment
         android:id="@+id/parametreFragment"
         android:name="com.helha.main_menu_activity.ParametreFragment"
         android:label="Parametre"
