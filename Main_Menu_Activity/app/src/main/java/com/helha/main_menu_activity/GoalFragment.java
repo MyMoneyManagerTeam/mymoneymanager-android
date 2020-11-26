@@ -7,11 +7,20 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import model.Goal;
+import model.GoalAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class GoalFragment extends Fragment {
+
+    private final List<Goal> goals = new ArrayList<>();
 
     public GoalFragment() {
         // Required empty public constructor
@@ -25,6 +34,21 @@ public class GoalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_goal, container, false);
+        View view = inflater.inflate(R.layout.fragment_goal, container, false);
+
+        ListView lvGoal = view.findViewById(R.id.lv_goals);
+
+        goals.add(new Goal("test goal",10));
+        goals.add(new Goal("oui",50));
+
+        GoalAdapter goalAdapter = new GoalAdapter(
+          getContext(),
+          R.id.lv_goals,
+          goals
+        );
+
+        lvGoal.setAdapter(goalAdapter);
+
+        return view;
     }
 }
