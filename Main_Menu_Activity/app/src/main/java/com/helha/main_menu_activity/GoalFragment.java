@@ -38,8 +38,12 @@ public class GoalFragment extends Fragment {
 
         ListView lvGoal = view.findViewById(R.id.lv_goals);
 
-        goals.add(new Goal("test goal",10));
-        goals.add(new Goal("oui",50));
+        //valeur à modifié avec celle de la db
+        //Modifie value max par la donnée max dans jar
+        // ******************* START ******************
+        goals.add(new Goal("test goal",10,100));
+        goals.add(new Goal("oui",50,100));
+        // ******************* END *******************
 
         GoalAdapter goalAdapter = new GoalAdapter(
           getContext(),

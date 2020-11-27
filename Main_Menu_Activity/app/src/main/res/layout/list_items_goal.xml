@@ -30,6 +30,14 @@
             android:layout_height="80dp"
             android:layout_gravity="center" />
 
+        <TextView
+            android:id="@+id/tv_goal_result"
+            android:layout_width="112dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:hint="Progress"
+            android:text="TextView" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

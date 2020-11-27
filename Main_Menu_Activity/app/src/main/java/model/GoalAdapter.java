@@ -43,8 +43,13 @@ public class GoalAdapter extends ArrayAdapter<Goal> {
         TextView tvName = inflatedView.findViewById(R.id.tv_title_goal);
         tvName.setText(goals.getName());
 
+        TextView tvProgress = inflatedView.findViewById(R.id.tv_goal_result);
+
+        tvProgress.setText(goals.getValue() + "€ / "+ goals.getValueMax()+ "€");
+
         ProgressBar pgGoal = inflatedView.findViewById(R.id.pg_goal);
-        ObjectAnimator pgAnimator = ObjectAnimator.ofFloat(pgGoal,"Progress",10,goals.getValue());
+        ObjectAnimator pgAnimator = ObjectAnimator.ofFloat(pgGoal,"Progress",0,goals.getValueMax());
+        pgGoal.setProgress((int)goals.getValue());
         pgAnimator.setDuration(7000);
     }
 }
