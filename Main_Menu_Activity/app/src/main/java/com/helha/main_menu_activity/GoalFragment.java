@@ -12,15 +12,15 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Goal;
-import model.GoalAdapter;
+import model.Jar;
+import model.JarAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class GoalFragment extends Fragment {
 
-    private final List<Goal> goals = new ArrayList<>();
+    private final List<Jar> goals = new ArrayList<>();
 
     public GoalFragment() {
         // Required empty public constructor
@@ -41,11 +41,11 @@ public class GoalFragment extends Fragment {
         //valeur à modifié avec celle de la db
         //Modifie value max par la donnée max dans jar
         // ******************* START ******************
-        goals.add(new Goal("test goal",10,100));
-        goals.add(new Goal("oui",50,100));
+       // goals.add(new Jar("test goal",10,100));
+       // goals.add(new Jar("oui",50,100));
         // ******************* END *******************
 
-        GoalAdapter goalAdapter = new GoalAdapter(
+        JarAdapter goalAdapter = new JarAdapter(
           getContext(),
           R.id.lv_goals,
           goals

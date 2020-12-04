@@ -42,8 +42,8 @@ public class HistoriqueFragment extends Fragment {
         //Valeur à modifié avec les valeurs en db
         //ATTENTION : transformé la date au format suivant : X \n LLL     => X jour  | L mois lettre
         //*********** START *************
-        transactions.add(new TransactionHistory("9\n sep","transfert test","moi","lui", (float) 10.0));
-        transactions.add(new TransactionHistory("10\n sep","transfert test2","moi","lui",(float) 10.0));
+       // transactions.add(new TransactionHistory("9\n sep","transfert test","moi","lui", (float) 10.0));
+        //transactions.add(new TransactionHistory("10\n sep","transfert test2","moi","lui",(float) 10.0));
         //*********** END ***************
         TransactionHistoryAdapter transactionHistoryAdapter = new TransactionHistoryAdapter(
                 getContext(),

@@ -42,6 +42,6 @@ public class JarAdapter extends ArrayAdapter<Jar>{
         TextView tvValue = inflatedView.findViewById(R.id.tv_value_jar);
 
         tvName.setText(jars.getName());
-        tvValue.setText(jars.getValue()+"€");
+        tvValue.setText(jars.getBalance()+"€");
     }
 }

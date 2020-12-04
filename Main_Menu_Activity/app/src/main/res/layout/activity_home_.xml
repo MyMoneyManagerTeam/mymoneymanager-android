@@ -60,5 +60,5 @@
         android:layout_height="match_parent"
         app:headerLayout="@layout/layout_navigation_header"
         android:layout_gravity="start"/>
-</androidx.drawerlayout.widget.DrawerLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
