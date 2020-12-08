@@ -4,10 +4,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -65,9 +68,11 @@ public class Sign_In_Activity extends AppCompatActivity {
     }
 
     private void GoToActivityHome(User user) {
-
         Intent intent = new Intent(Sign_In_Activity.this, Home_Activity.class);
-        intent.putExtra(KEY_EXTRA_TOKEN,user.getJWTBearer());
+        intent.putExtra(KEY_EXTRA_TOKEN, user.getJWTBearer());
         startActivity(intent);
     }
+
+
+
 }

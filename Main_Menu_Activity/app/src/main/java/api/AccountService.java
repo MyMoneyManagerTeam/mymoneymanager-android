@@ -8,13 +8,14 @@ import model.Accounts;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
 
 public interface AccountService {
 
-    @GET("Account")
+    @POST("Account")
     Call<Accounts> ModifyBalance();
 
-    @GET("Account")
-    Call<Accounts> get(@Header("Authorization") String token);
+    @GET("Account/get")
+    Call<Accounts> getAccount(@Header("Authorization") String token);
 
 }

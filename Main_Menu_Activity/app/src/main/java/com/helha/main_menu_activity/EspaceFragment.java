@@ -1,5 +1,6 @@
 package com.helha.main_menu_activity;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Shader;
 import android.os.Bundle;
@@ -32,8 +33,7 @@ import repository.AccountRepository;
 public class EspaceFragment extends Fragment {
 
     private final List<Jar> jars = new ArrayList<>();
-    private final AccountRepository accountRepository = new AccountRepository();
-    private String userToken;
+    private TextView tvValueAccount;
     public EspaceFragment() {
         // Required empty public constructor
     }
@@ -48,38 +48,40 @@ public class EspaceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_espace, container, false);
+        tvValueAccount = view.findViewById(R.id.tv_value_account);
 
-        SharedPreferences Pref = getBaseContext().getSharedPreferences(, 0);
-        String password = pref.getString("KEY_PASSWORD","Default Password");
+        //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
+        String userToken = preferences.getString("TOKEN", "No Token");
+        Log.i("espace", "La récéption du token: "+ userToken);
 
-        final TextView tvValueAccount = view.findViewById(R.id.tv_value_account);
+        //Actualisation du getBalance de mon compte.
+        Accounts accounts;
+        AccountRepository accountRepository = new AccountRepository();
+        accountRepository.get(userToken)
+                .observe(this.getViewLifecycleOwner() , new Observer<Accounts>() {
+                    @Override
+                    public void onChanged(Accounts accounts) {
+                        tvValueAccount.setText(accounts.getBalance()+"€");
+                    }
+                });
 
-        accountRepository.get(userToken).observe(EspaceFragment.this.getViewLifecycleOwner(), new Observer<Accounts>() {
-            @Override
-            public void onChanged(Accounts accounts) {
-                tvValueAccount.setText(accounts.getBalance()+"€");
-            }
-        });
 
-
-       GridView gvJar = view.findViewById(R.id.gv_jars);
-
-       //valeur à changer avec la db
+        //Gestion des jars
+        GridView gvJar = view.findViewById(R.id.gv_jars);
+        //valeur à changer avec la db
         //************** START *************
-      //  jars.add(new Jar("Test",200));
-       // jars.add(new Jar("Test",200));
-       // jars.add(new Jar("Test",200));
+        //  jars.add(new Jar("Test",200));
+        // jars.add(new Jar("Test",200));
+        // jars.add(new Jar("Test",200));
         //************** END ***************
         JarAdapter jarAdapter = new JarAdapter(
                 getContext(),
                 R.id.gv_jars,
                 jars
         );
-
         gvJar.setAdapter(jarAdapter);
-
         /*gvJar.setOnClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

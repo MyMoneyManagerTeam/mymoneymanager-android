@@ -17,24 +17,14 @@ public class AccountRepository {
 
     private AccountService getAccountService(){return ApiClient.getClient().create(AccountService.class);}
 
-    public LiveData<Accounts> get(String token)
+    public LiveData<Accounts> get(final String token)
     {
         final MutableLiveData<Accounts> mutableLiveData = new MutableLiveData<>();
 
-       getAccountService().get(token).enqueue(new Callback<Accounts>() {
+        getAccountService().getAccount(token).enqueue(new Callback<Accounts>() {
            @Override
            public void onResponse(Call<Accounts> call, Response<Accounts> response) {
-              if(response.isSuccessful())
-              {
                   mutableLiveData.postValue(response.body());
-                  Log.i("accounts","succes" + response.body().toString());
-              }
-              else
-              {
-                  Log.i("accounts","succes pas total " + response.message());
-
-              }
-
            }
 
            @Override

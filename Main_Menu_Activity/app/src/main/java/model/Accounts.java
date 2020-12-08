@@ -2,21 +2,21 @@ package model;
 
 public class Accounts {
 
-    private int id;
+    private String id;
     private double balance;
     private double availableBalance;
 
-    public Accounts(int id, double balance, double availableBalance){
+    public Accounts(String id, double balance, double availableBalance){
         this.id = id;
         this.balance = balance;
         this.availableBalance = availableBalance;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
