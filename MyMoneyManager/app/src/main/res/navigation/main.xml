@@ -28,11 +28,16 @@
     <fragment
         android:id="@+id/parametreFragment"
         android:name="com.helha.mymoneymanager.fragment.ParametreFragment"
-        android:label="Parametre"
+        android:label="Réglages"
         tools:layout="@layout/fragment_parametre" />
     <fragment
         android:id="@+id/espaceFragment"
         android:name="com.helha.mymoneymanager.fragment.EspaceFragment"
-        android:label="fragment_espace"
+        android:label="Espaces"
         tools:layout="@layout/fragment_espace" />
+    <fragment
+        android:id="@+id/deconnexionFragment"
+        android:name="com.helha.mymoneymanager.fragment.DeconnexionFragment"
+        android:label="Deconnexion"
+        tools:layout="@layout/fragment_deconnexion"/>
 </navigation>

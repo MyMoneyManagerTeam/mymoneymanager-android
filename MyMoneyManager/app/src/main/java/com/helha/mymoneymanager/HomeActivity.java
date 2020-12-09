@@ -27,15 +27,10 @@ import repository.JarRepository;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private final AccountRepository accountRepository = new AccountRepository();
-    private String userToken;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_);
-
-        //Réception du token depuis Sign In Activity
-        String userToken = getIntent().getStringExtra(SignInActivity.KEY_EXTRA_TOKEN);
 
         final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
@@ -44,7 +39,6 @@ public class HomeActivity extends AppCompatActivity {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
-
 
         NavigationView navigationView = findViewById(R.id.navigationView);
         navigationView.setItemIconTintList(null);
@@ -61,15 +55,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        //POST new JAR sur l'API
-        /*JarRepository jarRepository = new JarRepository();
-        final Jar newJar = new Jar(null,null, "TestToDelete", "TestToDelete", 600, 500);
-
-        jarRepository.create(userToken,newJar).observe(HomeActivity.this, new Observer<Jar>() {
-            @Override
-            public void onChanged(Jar jar) {
-            }
-        });*/
 
     }
 }

@@ -45,12 +45,7 @@ public class SignInActivity extends AppCompatActivity {
                             //accès à l'activité Home
                             GoToActivityHome(user);
                             authenticateRepository.testToken(user.getJWTBearer());
-
-                            //Je stocke dans l'endroit USERTOKENSHARED LE TOKEN => userToken pour communiquer avec mes fragments
-                            SharedPreferences preferences = getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = preferences.edit();
-                            editor.putString("TOKEN", user.getJWTBearer());
-                            editor.apply();
+                            storeToken(user);
 
                         } else {
                             Toast toast = Toast.makeText(SignInActivity.this.getApplicationContext(), "Mail/Password incorrect", Toast.LENGTH_LONG);
@@ -64,8 +59,16 @@ public class SignInActivity extends AppCompatActivity {
 
     private void GoToActivityHome(User user) {
         Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
-        intent.putExtra(KEY_EXTRA_TOKEN, user.getJWTBearer());
         startActivity(intent);
+    }
+
+    private void storeToken(User user){
+        //Je stocke dans l'endroit USERTOKENSHARED LE TOKEN => userToken pour communiquer avec mes fragments
+        SharedPreferences preferences = getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("TOKEN", user.getJWTBearer());
+        editor.putString("USERID",user.getId());
+        editor.apply();
     }
 
 

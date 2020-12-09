@@ -25,12 +25,13 @@
                 android:title="Historique"/>
         </menu>
     </item>
-    <item android:title="Réglages">
+    <item android:title="Options">
         <menu>
             <item
                 android:id="@+id/parametreFragment"
-                android:title="Configurations"/>
+                android:title="Réglages"/>
             <item
+                android:id="@+id/deconnexionFragment"
                 android:title="Déconnexion"/>
         </menu>
     </item>

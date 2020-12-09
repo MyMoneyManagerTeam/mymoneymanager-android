@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,14 +35,13 @@ public class SyntheseFragment extends Fragment {
 
     AnyChartView ACV_pie;
     AnyChartView ACV_bar;
-    private final List<Jar> jars = new ArrayList<>();
 
     //Valeur à changer avec les données de la db
     //************ START ****************
     /*String[] months = {"janvier","fevrier","mars"};
     int[] earnings = {500,800,2000};*/
 
-    int[] earningsJar = {100,200,300};
+    double[] earningsJar = {100,200,300};
     String[] nameJar = {"vacance","vetement","nourriture"};
     //************ END ****************
 
@@ -63,18 +63,6 @@ public class SyntheseFragment extends Fragment {
         APIlib.getInstance().setActiveAnyChartView(ACV_bar);
         setupBarGraph();*/
 
-        //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
-        String userToken = preferences.getString("TOKEN", "No Token");
-
-        JarRepository jarRepository = new JarRepository();
-        jarRepository.query(userToken).observe(this.getViewLifecycleOwner(), new Observer<List<Jar>>() {
-            @Override
-            public void onChanged(List<Jar> loadedJars) {
-                jars.addAll(loadedJars);
-            }
-        });
-
         ACV_pie= view.findViewById(R.id.circle_graph);
         APIlib.getInstance().setActiveAnyChartView(ACV_pie);
         setupCircleGraph();
@@ -93,7 +81,7 @@ public class SyntheseFragment extends Fragment {
         }
 
         pie.data(dataEntries);
-        pie.title("Différente jar du compte");
+        pie.title("Répartition des jars");
         ACV_pie.setChart(pie);
     }
 
