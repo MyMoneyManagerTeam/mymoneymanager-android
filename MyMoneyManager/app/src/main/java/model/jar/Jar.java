@@ -1,15 +1,15 @@
 package model.jar;
 
 public class Jar {
-    String jar_id;
+    String id;
     String owner;
     String description;
     String name;
     float max;
     float balance;
 
-    public Jar(String jar_id, String owner, String description, String name, float max, float balance) {
-        this.jar_id = jar_id;
+    public Jar(String id, String owner, String description, String name, float max, float balance) {
+        this.id = id;
         this.owner = owner;
         this.description = description;
         this.name = name;
@@ -18,11 +18,11 @@ public class Jar {
     }
 
     public String getJar_id() {
-        return jar_id;
+        return id;
     }
 
     public void setJar_id(String jar_id) {
-        this.jar_id = jar_id;
+        this.id = id;
     }
 
     public String getOwner() {
@@ -63,5 +63,17 @@ public class Jar {
 
     public void setBalance(float balance) {
         this.balance = balance;
+    }
+
+    @Override
+    public String toString() {
+        return "Jar{" +
+                "id='" + id + '\'' +
+                ", owner='" + owner + '\'' +
+                ", description='" + description + '\'' +
+                ", name='" + name + '\'' +
+                ", max=" + max +
+                ", balance=" + balance +
+                '}';
     }
 }

@@ -13,7 +13,7 @@
     <menu>
         <item
             android:id="@+id/envoyerFragment"
-            android:title="Envoyer" />
+            android:title="Envoyer"/>
         <item
             android:id="@+id/recevoirFragment"
             android:title="Recevoir" />
@@ -29,7 +29,14 @@
                 android:title="Mon historique"/>
         </menu>
     </item>
-    <item
-        android:id="@+id/parametreFragment"
-        android:title="Paramètres"/>
+    <item android:title="Réglages">
+        <menu>
+            <item
+                android:id="@+id/parametreFragment"
+                android:title="Configurations"/>
+            <item
+                android:title="Déconnexion"/>
+        </menu>
+    </item>
+
 </menu>

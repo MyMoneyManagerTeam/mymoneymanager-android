@@ -33,13 +33,6 @@ public class HomeActivity extends AppCompatActivity {
         //Réception du token depuis Sign In Activity
         String userToken = getIntent().getStringExtra(SignInActivity.KEY_EXTRA_TOKEN);
 
-        //Je stocke dans l'endroit USERTOKENSHARED LE TOKEN => userToken pour communiquer avec mes fragments
-        SharedPreferences preferences = getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("TOKEN", userToken);
-        editor.apply();
-
-
         final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
             @Override

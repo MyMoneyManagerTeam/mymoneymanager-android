@@ -23,6 +23,7 @@ import model.accounts.Accounts;
 import model.jar.Jar;
 import model.jar.JarAdapter;
 import repository.AccountRepository;
+import repository.JarRepository;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,7 +40,6 @@ public class EspaceFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -51,7 +51,6 @@ public class EspaceFragment extends Fragment {
         //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
         SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
         String userToken = preferences.getString("TOKEN", "No Token");
-        Log.i("espace", "La récéption du token: "+ userToken);
 
         //Actualisation du getBalance de mon compte.
         Accounts accounts;
@@ -66,18 +65,20 @@ public class EspaceFragment extends Fragment {
 
         //Gestion des jars
         GridView gvJar = view.findViewById(R.id.gv_jars);
-        //valeur à changer avec la db
-        //************** START *************
-        //  jars.add(new Jar("Test",200));
-        // jars.add(new Jar("Test",200));
-        // jars.add(new Jar("Test",200));
-        //************** END ***************
-        JarAdapter jarAdapter = new JarAdapter(
-                getContext(),
-                R.id.gv_jars,
-                jars
-        );
+        final JarAdapter jarAdapter = new JarAdapter(getContext(), R.id.gv_jars, jars);
         gvJar.setAdapter(jarAdapter);
+
+        JarRepository jarRepository = new JarRepository();
+        jarRepository.query(userToken).observe(this.getViewLifecycleOwner(), new Observer<List<Jar>>() {
+            @Override
+            public void onChanged(List<Jar> loadedJars) {
+                jars.addAll(loadedJars);
+                jarAdapter.notifyDataSetChanged();
+            }
+        });
+
+
+
         /*gvJar.setOnClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

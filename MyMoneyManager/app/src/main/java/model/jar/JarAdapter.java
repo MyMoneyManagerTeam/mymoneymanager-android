@@ -1,6 +1,7 @@
 package model.jar;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,18 +31,18 @@ public class JarAdapter extends ArrayAdapter<Jar>{
             inflatedView = layoutInflater.inflate(R.layout.list_items_jar,parent,false);
         }
 
-        final Jar jars = getItem(position);
-        populateView(inflatedView, jars);
+        final Jar jar = getItem(position);
+        populateView(inflatedView, jar);
 
         return inflatedView;
     }
 
-    private void populateView(View inflatedView, Jar jars) {
+    private void populateView(View inflatedView, Jar jar) {
 
         TextView tvName = inflatedView.findViewById(R.id.tv_name_jar);
         TextView tvValue = inflatedView.findViewById(R.id.tv_value_jar);
 
-        tvName.setText(jars.getName());
-        tvValue.setText(jars.getBalance()+"€");
+        tvName.setText(jar.getName());
+        tvValue.setText(jar.getBalance()+"€");
     }
 }

@@ -6,9 +6,12 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.io.IOException;
+
 import api.ApiClient;
 import api.AuthenticateService;
 import api.LoginRequest;
+import exception.DatabaseNotFound;
 import model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,12 +54,10 @@ public class AuthenticateRepository {
                 if(response.isSuccessful())
                 {
                     Log.i("verif","Succes" + response.headers());
-
                 }
                 else
                 {
                     Log.i("verif","Succes mais pas trop" + response.headers());
-
                 }
             }
 

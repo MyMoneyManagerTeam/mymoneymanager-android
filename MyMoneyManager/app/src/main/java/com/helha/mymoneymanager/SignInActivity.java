@@ -3,7 +3,9 @@ package com.helha.mymoneymanager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -32,28 +34,27 @@ public class SignInActivity extends AppCompatActivity {
         validationButton = findViewById(R.id.btn_validation);
         et_username = findViewById(R.id.et_username);
         et_password = findViewById(R.id.et_password);
-
         final AuthenticateRepository authenticateRepository = new AuthenticateRepository();
-
-
 
         validationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                authenticateRepository.authenticate(new LoginRequest(et_username.getText().toString(),et_password.getText().toString())).observe(SignInActivity.this, new Observer<User>() {
+                authenticateRepository.authenticate(new LoginRequest(et_username.getText().toString(), et_password.getText().toString())).observe(SignInActivity.this, new Observer<User>() {
                     @Override
                     public void onChanged(User user) {
-                        if(user != null)
-                        {
+                        if (user != null) {
                             //accès à l'activité Home
                             GoToActivityHome(user);
                             authenticateRepository.testToken(user.getJWTBearer());
-                        }
-                        else
-                        {
-                            Toast toast = Toast.makeText(SignInActivity.this.getApplicationContext(),"Username/password incorrext",Toast.LENGTH_LONG);
-                            toast.show();
 
+                            //Je stocke dans l'endroit USERTOKENSHARED LE TOKEN => userToken pour communiquer avec mes fragments
+                            SharedPreferences preferences = getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("TOKEN", user.getJWTBearer());
+                            editor.apply();
+                        } else {
+                            Toast toast = Toast.makeText(SignInActivity.this.getApplicationContext(), "Mail/Password incorrect", Toast.LENGTH_LONG);
+                            toast.show();
                         }
                     }
                 });
