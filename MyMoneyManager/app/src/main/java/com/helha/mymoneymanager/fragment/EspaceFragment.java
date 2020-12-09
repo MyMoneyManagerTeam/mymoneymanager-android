@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.helha.mymoneymanager.HomeActivity;
 import com.helha.mymoneymanager.R;
 
 import java.util.ArrayList;
@@ -76,8 +77,6 @@ public class EspaceFragment extends Fragment {
                 jarAdapter.notifyDataSetChanged();
             }
         });
-
-
 
         /*gvJar.setOnClickListener(new AdapterView.OnItemClickListener() {
             @Override

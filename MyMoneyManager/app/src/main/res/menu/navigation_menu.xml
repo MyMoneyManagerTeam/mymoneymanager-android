@@ -3,14 +3,13 @@
 
     <item
         android:id="@+id/syntheseFragment"
-        android:title="Synthèse"/>
-    <item
-        android:id="@+id/espaceFragment"
-        android:title="Mes Espaces" />
-
+        android:title="Dashboard"/>
 
     <item android:title="Gérer">
     <menu>
+        <item
+            android:id="@+id/espaceFragment"
+            android:title="Espaces" />
         <item
             android:id="@+id/envoyerFragment"
             android:title="Envoyer"/>
@@ -22,11 +21,8 @@
     <item android:title="Consulter">
         <menu>
             <item
-                android:id="@+id/goalFragment"
-                android:title="Mes goals"/>
-            <item
                 android:id="@+id/historiqueFragment"
-                android:title="Mon historique"/>
+                android:title="Historique"/>
         </menu>
     </item>
     <item android:title="Réglages">

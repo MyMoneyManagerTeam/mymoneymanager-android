@@ -1,4 +1,4 @@
-package api;
+package apiServices;
 
 import model.User;
 import retrofit2.Call;

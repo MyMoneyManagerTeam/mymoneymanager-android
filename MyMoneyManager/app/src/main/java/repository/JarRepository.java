@@ -7,9 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
-import api.ApiClient;
-import api.JarService;
-import model.User;
+import apiServices.ApiClient;
+import apiServices.JarService;
 import model.jar.Jar;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

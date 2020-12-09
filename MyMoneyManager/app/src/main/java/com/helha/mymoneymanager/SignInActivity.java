@@ -7,20 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 
-import com.helha.mymoneymanager.R;
-
-import api.LoginRequest;
+import apiServices.LoginRequest;
 import model.User;
-import model.jar.Jar;
 import repository.AuthenticateRepository;
-import repository.JarRepository;
 
 public class SignInActivity extends AppCompatActivity {
 

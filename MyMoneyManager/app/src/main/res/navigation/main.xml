@@ -21,11 +21,6 @@
         android:label="Recevoir"
         tools:layout="@layout/fragment_recevoir" />
     <fragment
-        android:id="@+id/goalFragment"
-        android:name="com.helha.mymoneymanager.fragment.GoalFragment"
-        android:label="Goal"
-        tools:layout="@layout/fragment_goal" />
-    <fragment
         android:id="@+id/historiqueFragment"
         android:name="com.helha.mymoneymanager.fragment.HistoriqueFragment"
         android:label="Historique"

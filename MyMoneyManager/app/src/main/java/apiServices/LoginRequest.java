@@ -1,4 +1,4 @@
-package api;
+package apiServices;
 
 public class LoginRequest {
     private String mail;
