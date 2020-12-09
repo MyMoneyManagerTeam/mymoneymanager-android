@@ -38,7 +38,6 @@ public class JarAdapter extends ArrayAdapter<Jar>{
     }
 
     private void populateView(View inflatedView, Jar jar) {
-
         TextView tvName = inflatedView.findViewById(R.id.tv_name_jar);
         TextView tvValue = inflatedView.findViewById(R.id.tv_value_jar);
 

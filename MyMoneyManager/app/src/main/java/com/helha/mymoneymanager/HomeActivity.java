@@ -41,6 +41,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+
         NavigationView navigationView = findViewById(R.id.navigationView);
         navigationView.setItemIconTintList(null);
 
@@ -55,5 +56,15 @@ public class HomeActivity extends AppCompatActivity {
                 textTitle.setText(destination.getLabel());
             }
         });
+
+        //POST new JAR sur l'API
+        /*JarRepository jarRepository = new JarRepository();
+        Jar newJar = new Jar(null,null, "DescriptionTest", "Nametest", 600, 500);
+        jarRepository.create(user.getJWTBearer(),newJar).observe(SignInActivity.this, new Observer<Jar>() {
+            @Override
+            public void onChanged(Jar jar) {
+                Log.i("Jar", jar.toString());
+            }
+        });*/
     }
 }

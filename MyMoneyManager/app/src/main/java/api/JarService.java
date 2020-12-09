@@ -6,6 +6,7 @@ import model.jar.Jar;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -19,12 +20,12 @@ public interface JarService {
     Call<List<Jar>> query(@Header("Authorization") String token);
 
     @POST("Jar/Create")
-    Call<Jar> create(@Header("Authorization") String token, Jar newJar);
+    Call<Jar> create(@Header("Authorization") String token, @Body Jar newJar);
 
     @PUT("Jar/Update")
-    Call<Jar> update(@Header("Authorization") String token, Jar updateJar);
+    Call<Jar> update(@Header("Authorization") String token, @Body Jar updateJar);
 
     @DELETE("Jar/Delete/{jarId}")
-    Call<ResponseBody> delete(@Path("jarId") String jarIdToDelete);
+    Call<ResponseBody> delete(@Header("Authorization") String token, @Path("jarId") String jarIdToDelete);
 
 }
