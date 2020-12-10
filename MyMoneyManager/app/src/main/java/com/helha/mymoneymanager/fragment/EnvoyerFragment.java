@@ -2,10 +2,13 @@ package com.helha.mymoneymanager.fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,11 +29,16 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import model.transaction.TransactionItem;
+import repository.TransactionRepository;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class EnvoyerFragment extends Fragment {
 
+    //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
+    SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
     CodeScanner codeScanner;
     CodeScannerView codeScannerView;
     TextView resultdata;
@@ -68,15 +76,47 @@ public class EnvoyerFragment extends Fragment {
 
                         String[] qrCodeBrutResult = result.getText().split("\n");
                         String receiverId = qrCodeBrutResult[0];
-                        String amount = qrCodeBrutResult[1];
-                        //String receiverName = qrCodeBrutResult[2];
-                        resultdata.setText(/*receiverName +" " +*/ amount +" XOX" + receiverId);
+                        double amount = Double.parseDouble(qrCodeBrutResult[1]);
+                        String receiverName = qrCodeBrutResult[2];
+                        resultdata.setText(receiverName +" " + amount + receiverId);
+
+                        executeTransaction(receiverId,receiverName,amount);
                         //******** END *********
                     }
                 });
             }
         });
         return view;
+    }
+
+    private void executeTransaction(String receiverId, String receiverName, double amount) {
+        TransactionItem newTransaction = new TransactionItem(null,getEmitterId(),receiverId, amount,null, "Description",getEmitterName(),receiverName);
+
+        TransactionRepository transactionRepository = new TransactionRepository();
+        transactionRepository.create(getToken(),newTransaction).observe(this.getViewLifecycleOwner(), new Observer<TransactionItem>() {
+            @Override
+            public void onChanged(TransactionItem transactionItem) {
+                
+            }
+        });
+
+
+
+    }
+
+    private String getToken()
+    {
+        return preferences.getString("TOKEN", "No user ID");
+    }
+
+    private String getEmitterId()
+    {
+        return preferences.getString("USERID", "No user ID");
+    }
+
+    private String getEmitterName()
+    {
+        return preferences.getString("USERNAME", "No user Name");
     }
 
     @Override
@@ -104,4 +144,6 @@ public class EnvoyerFragment extends Fragment {
             }
         }).check();
     }
+
+
 }

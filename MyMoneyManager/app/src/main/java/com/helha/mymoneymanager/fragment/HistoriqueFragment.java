@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,26 +45,20 @@ public class HistoriqueFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_historique, container, false);
+        final ListView lvTransaction = view.findViewById(R.id.lv_historique);
+        final TransactionItemAdapter transactionItemAdapter = new TransactionItemAdapter(getContext(), R.id.lv_historique, transactions);
+        lvTransaction.setAdapter(transactionItemAdapter);
         final String userToken = getTokenShared();
+
         TransactionRepository transactionRepository = new TransactionRepository();
-        ListView lvTransaction = view.findViewById(R.id.lv_historique);
-
-        //Valeur à modifié avec les valeurs en db
-        //ATTENTION : transformé la date au format suivant : X \n LLL     => X jour  | L mois lettre
-        //*********** START *************
-       // transactions.add(new TransactionHistory("9\n sep","transfert test","moi","lui", (float) 10.0));
-        //transactions.add(new TransactionHistory("10\n sep","transfert test2","moi","lui",(float) 10.0));
-        //*********** END ***************
-
         transactionRepository.query(userToken).observe(this.getViewLifecycleOwner(), new Observer<Transactions>() {
             @Override
             public void onChanged(Transactions transactionHistories) {
                 transactions.addAll(transactionHistories.getTransactionList());
+                transactionItemAdapter.notifyDataSetChanged();
             }
         });
 
-        TransactionItemAdapter transactionItemAdapter = new TransactionItemAdapter(getContext(), R.id.lv_historique, transactions);
-        lvTransaction.setAdapter(transactionItemAdapter);
         return view;
     }
 

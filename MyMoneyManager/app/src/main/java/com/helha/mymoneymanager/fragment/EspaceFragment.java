@@ -64,14 +64,6 @@ public class EspaceFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_espace, container, false);
 
-        View viewOneJar = inflater.inflate(R.layout.fragment_about_one_jar, container, false);
-        etName = viewOneJar.findViewById(R.id.etName);
-        etDescription = viewOneJar.findViewById(R.id.etDescription);
-        etBalance = viewOneJar.findViewById(R.id.etBalance);
-        etGoal = viewOneJar.findViewById(R.id.etGoal);
-        pgGoal = viewOneJar.findViewById(R.id.pgGoal);
-        txtPercentage = viewOneJar.findViewById(R.id.txtPercentage);
-
         //Déclaration et initialisation
         Accounts accounts;
         AccountRepository accountRepository = new AccountRepository();
@@ -107,6 +99,13 @@ public class EspaceFragment extends Fragment {
                 View viewOneJar = inflater.inflate(R.layout.fragment_about_one_jar, container, false);
                 fbDialogue.setContentView(viewOneJar);
                 fbDialogue.setCancelable(true);
+
+                etName = viewOneJar.findViewById(R.id.etName);
+                etDescription = viewOneJar.findViewById(R.id.etDescription);
+                etBalance = viewOneJar.findViewById(R.id.etBalance);
+                etGoal = viewOneJar.findViewById(R.id.etGoal);
+                pgGoal = viewOneJar.findViewById(R.id.pgGoal);
+                txtPercentage = viewOneJar.findViewById(R.id.txtPercentage);
 
                 currentJar = jars.get(position).getJar_id();
                 etName.setText(jars.get(position).getName());
