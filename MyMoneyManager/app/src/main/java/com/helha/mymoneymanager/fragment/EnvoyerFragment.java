@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.google.gson.Gson;
 import com.google.zxing.Result;
 import com.helha.mymoneymanager.R;
 import com.karumi.dexter.Dexter;
@@ -64,7 +65,12 @@ public class EnvoyerFragment extends Fragment {
                         // RETRAIT ARGENT SUR LE COMPTE CREDITEUR
                         // AJOUT ARGENT SUR LE COMPTE DEBITEUR
                         //******* START *******
-                        resultdata.setText(result.getText());
+
+                        String[] qrCodeBrutResult = result.getText().split("\n");
+                        String receiverId = qrCodeBrutResult[0];
+                        String amount = qrCodeBrutResult[1];
+                        //String receiverName = qrCodeBrutResult[2];
+                        resultdata.setText(/*receiverName +" " +*/ amount +" XOX" + receiverId);
                         //******** END *********
                     }
                 });

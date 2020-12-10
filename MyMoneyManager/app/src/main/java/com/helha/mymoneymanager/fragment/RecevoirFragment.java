@@ -1,10 +1,13 @@
 package com.helha.mymoneymanager.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +16,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.google.gson.Gson;
 import com.helha.mymoneymanager.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
+import model.transaction.TransactionItem;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,7 +58,9 @@ public class RecevoirFragment extends Fragment {
         generateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String data = qrValue.getText().toString();
+                String data = getAccountID() +"\n"
+                            + qrValue.getText().toString() +"\n"
+                            + "ALEX";
                 if(data.isEmpty())
                 {
                     qrValue.setError("Valeur requise");
@@ -62,8 +72,20 @@ public class RecevoirFragment extends Fragment {
                 }
             }
         });
-
-
         return view;
+    }
+
+    public String getAccountID()
+    {
+        //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
+        return preferences.getString("USERID", "No Token");
+    }
+
+    public String getReceiverName()
+    {
+        //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
+        return preferences.getString("USERNAME", "No Token");
     }
 }
