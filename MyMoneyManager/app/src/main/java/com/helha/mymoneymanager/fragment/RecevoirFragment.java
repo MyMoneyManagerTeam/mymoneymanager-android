@@ -31,8 +31,6 @@ import model.transaction.TransactionItem;
  */
 public class RecevoirFragment extends Fragment {
 
-    //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
-    SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
     private LinearLayout linearLayout = null;
 
     EditText qrValue;
@@ -79,11 +77,15 @@ public class RecevoirFragment extends Fragment {
 
     public String getAccountID()
     {
+        //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
         return preferences.getString("USERID", "No Token");
     }
 
     public String getReceiverName()
     {
+        //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
         return preferences.getString("USERNAME", "No Token");
     }
 }

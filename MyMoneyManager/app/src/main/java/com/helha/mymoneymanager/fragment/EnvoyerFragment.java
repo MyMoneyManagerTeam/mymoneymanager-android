@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +38,6 @@ import repository.TransactionRepository;
  */
 public class EnvoyerFragment extends Fragment {
 
-    //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
-    SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
     CodeScanner codeScanner;
     CodeScannerView codeScannerView;
     TextView resultdata;
@@ -81,7 +80,6 @@ public class EnvoyerFragment extends Fragment {
                         resultdata.setText(receiverName +" " + amount + receiverId);
 
                         executeTransaction(receiverId,receiverName,amount);
-                        //******** END *********
                     }
                 });
             }
@@ -96,26 +94,29 @@ public class EnvoyerFragment extends Fragment {
         transactionRepository.create(getToken(),newTransaction).observe(this.getViewLifecycleOwner(), new Observer<TransactionItem>() {
             @Override
             public void onChanged(TransactionItem transactionItem) {
-                
+                Log.i("transaction", transactionItem.toString());
             }
         });
-
-
-
     }
 
     private String getToken()
     {
+        //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
         return preferences.getString("TOKEN", "No user ID");
     }
 
     private String getEmitterId()
     {
+        //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
         return preferences.getString("USERID", "No user ID");
     }
 
     private String getEmitterName()
     {
+        //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
         return preferences.getString("USERNAME", "No user Name");
     }
 
