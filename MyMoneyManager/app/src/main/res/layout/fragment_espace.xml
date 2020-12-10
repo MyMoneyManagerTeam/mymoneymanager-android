@@ -3,14 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.helha.mymoneymanager.fragment.EspaceFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="413dp"
-        android:layout_height="124dp"
+        android:layout_width="423dp"
+        android:layout_height="112dp"
+        android:background="@android:color/darker_gray"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,8 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:gravity="center"
-            android:textSize="35dp"
-            android:text="Somme sur le Compte" />
+            android:text="Total:"
+            android:textSize="35dp" />
 
         <TextView
             android:id="@+id/tv_value_account"
@@ -37,11 +39,13 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="535dp"
+        android:id="@+id/linearLayout2"
+        android:layout_width="418dp"
+        android:layout_height="596dp"
         android:foregroundGravity="bottom"
-        android:gravity="bottom"
-        android:orientation="horizontal"
+        android:isScrollContainer="true"
+        android:orientation="vertical"
+        android:overScrollMode="always"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,10 +53,15 @@
 
         <GridView
             android:id="@+id/gv_jars"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="490dp"
             android:clickable="true"
-            android:numColumns="2" />
+            android:fastScrollEnabled="false"
+            android:focusable="true"
+            android:numColumns="2"
+            android:overScrollMode="ifContentScrolls">
+
+        </GridView>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,20 +1,25 @@
 package com.helha.mymoneymanager.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.helha.mymoneymanager.HomeActivity;
 import com.helha.mymoneymanager.R;
 
 import java.util.ArrayList;
@@ -33,6 +38,14 @@ public class EspaceFragment extends Fragment {
 
     private final List<Jar> jars = new ArrayList<>();
     private TextView tvValueAccount;
+
+    EditText etName;
+    EditText etDescription;
+    EditText etBalance;
+    EditText etGoal;
+    ProgressBar pgGoal;
+    TextView txtPercentage;
+
     public EspaceFragment() {
         // Required empty public constructor
     }
@@ -44,32 +57,31 @@ public class EspaceFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_espace, container, false);
-        tvValueAccount = view.findViewById(R.id.tv_value_account);
 
-        //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
-        String userToken = preferences.getString("TOKEN", "No Token");
 
-        //Actualisation du getBalance de mon compte.
+        //Déclaration et initialisation
+        final String userToken = getTokenShared();
         Accounts accounts;
         AccountRepository accountRepository = new AccountRepository();
-        accountRepository.get(userToken)
-                .observe(this.getViewLifecycleOwner() , new Observer<Accounts>() {
-                    @Override
-                    public void onChanged(Accounts accounts) {
-                        tvValueAccount.setText(accounts.getBalance()+"€");
-                    }
-                });
-
-        //Gestion des jars
+        JarRepository jarRepository = new JarRepository();
+        tvValueAccount = view.findViewById(R.id.tv_value_account);
         GridView gvJar = view.findViewById(R.id.gv_jars);
         final JarAdapter jarAdapter = new JarAdapter(getContext(), R.id.gv_jars, jars);
         gvJar.setAdapter(jarAdapter);
 
-        JarRepository jarRepository = new JarRepository();
+
+        //Actualisation du getBalance de mon compte.
+        accountRepository.get(userToken).observe(this.getViewLifecycleOwner() , new Observer<Accounts>() {
+            @Override
+            public void onChanged(Accounts accounts) {
+                tvValueAccount.setText(accounts.getBalance()+"€");
+            }
+        });
+
+        //Chargement de mes jars
         jarRepository.query(userToken).observe(this.getViewLifecycleOwner(), new Observer<List<Jar>>() {
             @Override
             public void onChanged(List<Jar> loadedJars) {
@@ -78,12 +90,47 @@ public class EspaceFragment extends Fragment {
             }
         });
 
-        /*gvJar.setOnClickListener(new AdapterView.OnItemClickListener() {
+        //ClickListener pour ouvrir une fenêtre pour chaque jar
+        gvJar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final Dialog fbDialogue = new Dialog(getActivity(), android.R.style.Theme_Black_NoTitleBar);
+                fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(245, 254, 254, 254)));
+                View viewOneJar = inflater.inflate(R.layout.fragment_about_one_jar, container, false);
+                fbDialogue.setContentView(viewOneJar);
+                fbDialogue.setCancelable(true);
+
+                etName = viewOneJar.findViewById(R.id.etName);
+                etDescription = viewOneJar.findViewById(R.id.etDescription);
+                etBalance = viewOneJar.findViewById(R.id.etBalance);
+                etGoal = viewOneJar.findViewById(R.id.etGoal);
+                pgGoal = viewOneJar.findViewById(R.id.pgGoal);
+                txtPercentage = viewOneJar.findViewById(R.id.txtPercentage);
+
+                etName.setText(jars.get(position).getName());
+                etDescription.setText(jars.get(position).getDescription());
+                etBalance.setText(Double.toString(jars.get(position).getBalance()));
+                etGoal.setText(Double.toString(jars.get(position).getMax()));
+                int max = (int)jars.get(position).getMax();
+                pgGoal.setMax(max);
+                int prog = (int) jars.get(position).getBalance();
+                pgGoal.setProgress(prog);
+                int percent = (int) ((jars.get(position).getBalance()/jars.get(position).getMax())*100);
+                txtPercentage.setText(percent +"%");
+                fbDialogue.show();
 
             }
-        });*/
+        });
+
         return view;
     }
+
+    public String getTokenShared()
+    {
+        //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
+
+        return preferences.getString("TOKEN", "No Token");
+    }
 }
+

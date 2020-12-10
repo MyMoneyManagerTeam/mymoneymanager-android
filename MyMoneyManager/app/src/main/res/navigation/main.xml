@@ -40,4 +40,9 @@
         android:name="com.helha.mymoneymanager.fragment.DeconnexionFragment"
         android:label="Deconnexion"
         tools:layout="@layout/fragment_deconnexion"/>
+    <fragment
+        android:id="@+id/aboutOneJarFragment"
+        android:name="com.helha.mymoneymanager.fragment.AboutOneJarFragment"
+        android:label="About one Jar"
+        tools:layout="@layout/fragment_about_one_jar"/>
 </navigation>
