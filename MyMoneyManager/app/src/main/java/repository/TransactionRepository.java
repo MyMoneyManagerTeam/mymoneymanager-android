@@ -5,11 +5,10 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.List;
-
 import apiServices.ApiClient;
 import apiServices.TransactionService;
-import model.transaction.TransactionHistory;
+import model.transaction.TransactionItem;
+import model.transaction.Transactions;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,35 +19,35 @@ public class TransactionRepository {
         return ApiClient.getClient().create(TransactionService.class);
     }
 
-    public MutableLiveData<List<TransactionHistory>> query(String token){
-        final MutableLiveData<List<TransactionHistory>> mutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<Transactions> query(String token){
+        final MutableLiveData<Transactions> mutableLiveData = new MutableLiveData<>();
 
-        getTransactionService().query(token).enqueue(new Callback<List<TransactionHistory>>() {
+        getTransactionService().query(token).enqueue(new Callback<Transactions>() {
             @Override
-            public void onResponse(Call<List<TransactionHistory>> call, Response<List<TransactionHistory>> response) {
+            public void onResponse(Call<Transactions> call, Response<Transactions> response) {
                 mutableLiveData.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<TransactionHistory>> call, Throwable t) {
-                Log.i("Transaction","Fail on query: " + t.getMessage());
+            public void onFailure(Call<Transactions> call, Throwable t) {
+                Log.i("transaction","Fail on query: " + t.getMessage());
             }
         });
 
         return mutableLiveData;
     }
 
-    public LiveData<TransactionHistory> create(String token, TransactionHistory newTransaction){
-        final MutableLiveData<TransactionHistory> mutableLiveData = new MutableLiveData<>();
+    public LiveData<TransactionItem> create(String token, TransactionItem newTransaction){
+        final MutableLiveData<TransactionItem> mutableLiveData = new MutableLiveData<>();
 
-        getTransactionService().create(token, newTransaction).enqueue(new Callback<TransactionHistory>() {
+        getTransactionService().create(token, newTransaction).enqueue(new Callback<TransactionItem>() {
             @Override
-            public void onResponse(Call<TransactionHistory> call, Response<TransactionHistory> response) {
+            public void onResponse(Call<TransactionItem> call, Response<TransactionItem> response) {
                 mutableLiveData.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<TransactionHistory> call, Throwable t) {
+            public void onFailure(Call<TransactionItem> call, Throwable t) {
                 Log.i("Transaction","Fail on create: " + t.getMessage());
             }
         });

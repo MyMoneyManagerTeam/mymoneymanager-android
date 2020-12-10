@@ -14,10 +14,10 @@ import com.helha.mymoneymanager.R;
 
 import java.util.List;
 
-public class TransactionHistoryAdapter extends ArrayAdapter<TransactionHistory>
+public class TransactionItemAdapter extends ArrayAdapter<TransactionItem>
 {
 
-    public TransactionHistoryAdapter(@NonNull Context context, int resource, @NonNull List<TransactionHistory> objects) {
+    public TransactionItemAdapter(@NonNull Context context, int resource, @NonNull List<TransactionItem> objects) {
         super(context, resource, objects);
     }
 
@@ -32,13 +32,13 @@ public class TransactionHistoryAdapter extends ArrayAdapter<TransactionHistory>
             inflatedView = layoutInflater.inflate(R.layout.list_items_history_transaction,parent,false);
         }
 
-        final TransactionHistory transactionHistory = getItem(position);
-        populateView(inflatedView, transactionHistory);
+        final TransactionItem transactionItem = getItem(position);
+        populateView(inflatedView, transactionItem);
 
         return inflatedView;
     }
 
-    private void populateView(View inflatedView, TransactionHistory transactionHistory) {
+    private void populateView(View inflatedView, TransactionItem transactionItem) {
 
         TextView tvDate = inflatedView.findViewById(R.id.tv_date_transaction);
         TextView tvDescription = inflatedView.findViewById(R.id.tv_description_transaction);
@@ -46,10 +46,10 @@ public class TransactionHistoryAdapter extends ArrayAdapter<TransactionHistory>
         TextView tvCrediteur = inflatedView.findViewById(R.id.tv_crediteur_transaction);
         TextView tvSomme = inflatedView.findViewById(R.id.tv_somme_transaction);
 
-        tvDate.setText(transactionHistory.getDate());
-        tvDescription.setText(transactionHistory.getDescription());
-        tvDebiteur.setText("De: " +transactionHistory.getDebiteur());
-        tvCrediteur.setText("Vers : " +transactionHistory.getCrediteur());
-        tvSomme.setText(transactionHistory.getSomme().toString() + "€");
+        tvDate.setText(transactionItem.getTransactionDate());
+        tvDescription.setText(transactionItem.getDescription());
+        tvDebiteur.setText("De: " + transactionItem.getEmitterName());
+        tvCrediteur.setText("Vers : " + transactionItem.getReceiverName());
+        tvSomme.setText(transactionItem.getAmount() + "€");
     }
 }

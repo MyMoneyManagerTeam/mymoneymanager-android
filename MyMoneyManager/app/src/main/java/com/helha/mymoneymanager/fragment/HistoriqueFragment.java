@@ -17,8 +17,9 @@ import com.helha.mymoneymanager.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.transaction.TransactionHistory;
-import model.transaction.TransactionHistoryAdapter;
+import model.transaction.TransactionItem;
+import model.transaction.TransactionItemAdapter;
+import model.transaction.Transactions;
 import repository.TransactionRepository;
 
 /**
@@ -26,7 +27,7 @@ import repository.TransactionRepository;
  */
 public class HistoriqueFragment extends Fragment {
 
-    private final List<TransactionHistory> transactions = new ArrayList<>();
+    private final List<TransactionItem> transactions = new ArrayList<>();
 
     public HistoriqueFragment() {
         // Required empty public constructor
@@ -40,6 +41,7 @@ public class HistoriqueFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_historique, container, false);
         final String userToken = getTokenShared();
@@ -53,20 +55,15 @@ public class HistoriqueFragment extends Fragment {
         //transactions.add(new TransactionHistory("10\n sep","transfert test2","moi","lui",(float) 10.0));
         //*********** END ***************
 
-        transactionRepository.query(userToken).observe(this.getViewLifecycleOwner(), new Observer<List<TransactionHistory>>() {
+        transactionRepository.query(userToken).observe(this.getViewLifecycleOwner(), new Observer<Transactions>() {
             @Override
-            public void onChanged(List<TransactionHistory> transactionHistories) {
-                transactions.addAll(transactionHistories);
+            public void onChanged(Transactions transactionHistories) {
+                transactions.addAll(transactionHistories.getTransactionList());
             }
         });
 
-        TransactionHistoryAdapter transactionHistoryAdapter = new TransactionHistoryAdapter(
-                getContext(),
-                R.id.lv_historique,
-                transactions
-        );
-
-        lvTransaction.setAdapter(transactionHistoryAdapter);
+        TransactionItemAdapter transactionItemAdapter = new TransactionItemAdapter(getContext(), R.id.lv_historique, transactions);
+        lvTransaction.setAdapter(transactionItemAdapter);
         return view;
     }
 
@@ -74,7 +71,6 @@ public class HistoriqueFragment extends Fragment {
     {
         //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
         SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
-
         return preferences.getString("TOKEN", "No Token");
     }
 }

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,8 @@ public class EspaceFragment extends Fragment {
     EditText etGoal;
     ProgressBar pgGoal;
     TextView txtPercentage;
+    String currentJar = null ;
+    JarRepository jarRepository = new JarRepository();
 
     public EspaceFragment() {
         // Required empty public constructor
@@ -61,12 +64,17 @@ public class EspaceFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_espace, container, false);
 
+        View viewOneJar = inflater.inflate(R.layout.fragment_about_one_jar, container, false);
+        etName = viewOneJar.findViewById(R.id.etName);
+        etDescription = viewOneJar.findViewById(R.id.etDescription);
+        etBalance = viewOneJar.findViewById(R.id.etBalance);
+        etGoal = viewOneJar.findViewById(R.id.etGoal);
+        pgGoal = viewOneJar.findViewById(R.id.pgGoal);
+        txtPercentage = viewOneJar.findViewById(R.id.txtPercentage);
 
         //Déclaration et initialisation
-        final String userToken = getTokenShared();
         Accounts accounts;
         AccountRepository accountRepository = new AccountRepository();
-        JarRepository jarRepository = new JarRepository();
         tvValueAccount = view.findViewById(R.id.tv_value_account);
         GridView gvJar = view.findViewById(R.id.gv_jars);
         final JarAdapter jarAdapter = new JarAdapter(getContext(), R.id.gv_jars, jars);
@@ -74,7 +82,7 @@ public class EspaceFragment extends Fragment {
 
 
         //Actualisation du getBalance de mon compte.
-        accountRepository.get(userToken).observe(this.getViewLifecycleOwner() , new Observer<Accounts>() {
+        accountRepository.get(getSharedToken()).observe(this.getViewLifecycleOwner() , new Observer<Accounts>() {
             @Override
             public void onChanged(Accounts accounts) {
                 tvValueAccount.setText(accounts.getBalance()+"€");
@@ -82,7 +90,7 @@ public class EspaceFragment extends Fragment {
         });
 
         //Chargement de mes jars
-        jarRepository.query(userToken).observe(this.getViewLifecycleOwner(), new Observer<List<Jar>>() {
+        jarRepository.query(getSharedToken()).observe(this.getViewLifecycleOwner(), new Observer<List<Jar>>() {
             @Override
             public void onChanged(List<Jar> loadedJars) {
                 jars.addAll(loadedJars);
@@ -100,13 +108,7 @@ public class EspaceFragment extends Fragment {
                 fbDialogue.setContentView(viewOneJar);
                 fbDialogue.setCancelable(true);
 
-                etName = viewOneJar.findViewById(R.id.etName);
-                etDescription = viewOneJar.findViewById(R.id.etDescription);
-                etBalance = viewOneJar.findViewById(R.id.etBalance);
-                etGoal = viewOneJar.findViewById(R.id.etGoal);
-                pgGoal = viewOneJar.findViewById(R.id.pgGoal);
-                txtPercentage = viewOneJar.findViewById(R.id.txtPercentage);
-
+                currentJar = jars.get(position).getJar_id();
                 etName.setText(jars.get(position).getName());
                 etDescription.setText(jars.get(position).getDescription());
                 etBalance.setText(Double.toString(jars.get(position).getBalance()));
@@ -125,12 +127,31 @@ public class EspaceFragment extends Fragment {
         return view;
     }
 
-    public String getTokenShared()
+    public String getSharedToken()
     {
         //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
         SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
-
         return preferences.getString("TOKEN", "No Token");
+    }
+
+    public void updateJar(Jar newUpdatedJar)
+    {
+        jarRepository.update(getSharedToken(), newUpdatedJar).observe(this.getViewLifecycleOwner(), new Observer<Jar>() {
+            @Override
+            public void onChanged(Jar jar) {
+                Log.i("Jar", "Updated: "+ jar );
+            }
+        });
+    }
+
+    public void deleteJar()
+    {
+        jarRepository.delete(getSharedToken(),currentJar).observe(this.getViewLifecycleOwner(), new Observer<Jar>() {
+            @Override
+            public void onChanged(Jar jar) {
+                Log.i("Jar", "Deleted: "+ jar);
+            }
+        });
     }
 }
 
