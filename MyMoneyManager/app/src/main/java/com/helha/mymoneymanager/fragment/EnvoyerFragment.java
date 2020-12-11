@@ -87,7 +87,7 @@ public class EnvoyerFragment extends Fragment {
         return view;
     }
 
-    private void executeTransaction(String receiverId, String receiverName, double amount) {
+    private void executeTransaction(String receiverId, final String receiverName, double amount) {
         TransactionItem newTransaction = new TransactionItem(null,getEmitterId(),receiverId, amount,null, "Description",getEmitterName(),receiverName);
 
         TransactionRepository transactionRepository = new TransactionRepository();

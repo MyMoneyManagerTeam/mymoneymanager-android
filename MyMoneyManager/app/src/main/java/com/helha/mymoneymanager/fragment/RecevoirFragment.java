@@ -69,6 +69,7 @@ public class RecevoirFragment extends Fragment {
                     QRGEncoder qrgEncoder = new QRGEncoder(data, null, QRGContents.Type.TEXT, 500);
                     Bitmap qrBits = qrgEncoder.getBitmap();
                     qrImage.setImageBitmap(qrBits);
+
                 }
             }
         });

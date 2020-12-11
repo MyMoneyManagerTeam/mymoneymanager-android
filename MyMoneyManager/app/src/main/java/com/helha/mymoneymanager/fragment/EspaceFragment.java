@@ -46,7 +46,7 @@ public class EspaceFragment extends Fragment {
     EditText etGoal;
     ProgressBar pgGoal;
     TextView txtPercentage;
-    String currentJar = null ;
+    String currentJarId = null ;
     JarRepository jarRepository = new JarRepository();
 
     public EspaceFragment() {
@@ -107,7 +107,7 @@ public class EspaceFragment extends Fragment {
                 pgGoal = viewOneJar.findViewById(R.id.pgGoal);
                 txtPercentage = viewOneJar.findViewById(R.id.txtPercentage);
 
-                currentJar = jars.get(position).getJar_id();
+                currentJarId = jars.get(position).getJar_id();
                 etName.setText(jars.get(position).getName());
                 etDescription.setText(jars.get(position).getDescription());
                 etBalance.setText(Double.toString(jars.get(position).getBalance()));
@@ -119,7 +119,6 @@ public class EspaceFragment extends Fragment {
                 int percent = (int) ((jars.get(position).getBalance()/jars.get(position).getMax())*100);
                 txtPercentage.setText(percent +"%");
                 fbDialogue.show();
-
             }
         });
 
@@ -145,7 +144,7 @@ public class EspaceFragment extends Fragment {
 
     public void deleteJar()
     {
-        jarRepository.delete(getSharedToken(),currentJar).observe(this.getViewLifecycleOwner(), new Observer<Jar>() {
+        jarRepository.delete(getSharedToken(),currentJarId).observe(this.getViewLifecycleOwner(), new Observer<Jar>() {
             @Override
             public void onChanged(Jar jar) {
                 Log.i("Jar", "Deleted: "+ jar);

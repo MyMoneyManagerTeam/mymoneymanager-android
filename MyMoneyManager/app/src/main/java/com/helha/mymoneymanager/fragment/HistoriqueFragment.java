@@ -66,6 +66,6 @@ public class HistoriqueFragment extends Fragment {
     {
         //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
         SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
-        return preferences.getString("TOKEN", "No Token");
+        return preferences.getString("TOKEN", "No history Token");
     }
 }

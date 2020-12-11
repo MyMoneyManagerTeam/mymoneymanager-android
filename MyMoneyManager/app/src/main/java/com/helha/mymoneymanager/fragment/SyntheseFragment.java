@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.jar.Jar;
+import model.jar.JarPieAdapter;
 import repository.JarRepository;
 
 /**
@@ -68,6 +69,13 @@ public class SyntheseFragment extends Fragment {
         setupCircleGraph();
 
         return view;
+    }
+
+    public String getSharedToken()
+    {
+        //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
+        return preferences.getString("TOKEN", "No Token");
     }
 
     public void setupCircleGraph(){
