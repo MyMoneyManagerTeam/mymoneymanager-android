@@ -58,9 +58,9 @@ public class SyntheseFragment extends Fragment {
         APIlib.getInstance().setActiveAnyChartView(ACV_bar);
         setupBarGraph();*/
 
-        /*ACV_pie= view.findViewById(R.id.circle_graph);
+        ACV_pie= view.findViewById(R.id.circle_graph);
         APIlib.getInstance().setActiveAnyChartView(ACV_pie);
-        setupCircleGraph();*/
+        setupCircleGraph();
 
         return view;
     }
@@ -74,7 +74,7 @@ public class SyntheseFragment extends Fragment {
 
     public void setupCircleGraph(){
 
-        Pie pie = AnyChart.pie();
+        final Pie pie = AnyChart.pie();
         final List<DataEntry> dataEntries = new ArrayList<>();
         JarRepository jarRepository = new JarRepository();
         jarRepository.query(getSharedToken()).observe(getViewLifecycleOwner(), new Observer<List<Jar>>() {
@@ -82,16 +82,21 @@ public class SyntheseFragment extends Fragment {
             public void onChanged(List<Jar> jars) {
                 for(Jar jar : jars)
                 {
-                    dataEntries.add(new ValueDataEntry(jar.getName(),jar.getBalance()));
+                    Log.i("graph", "onChanged: jar" + jar);
+                    ValueDataEntry value = new ValueDataEntry(jar.getName(),jar.getBalance());
+                    Log.i("graph", "setupCircleGraph: value = " + value.toString());
+                    dataEntries.add(value);
                 }
                 Log.i("graph", "onChanged: jars: " + jars);
+                Log.i("graph", "setupCircleGraph: dataEntries: " + dataEntries.toString());
+                pie.data(dataEntries);
+                pie.title("Répartition des jars");
+                ACV_pie.setChart(pie);
             }
         });
 
-        Log.i("graph", "setupCircleGraph: " + dataEntries.toString());
-        pie.data(dataEntries);
-        pie.title("Répartition des jars");
-        ACV_pie.setChart(pie);
+
+
     }
 
    /* public void setupBarGraph()
