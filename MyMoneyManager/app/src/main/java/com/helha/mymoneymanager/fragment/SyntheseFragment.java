@@ -37,14 +37,8 @@ public class SyntheseFragment extends Fragment {
     AnyChartView ACV_pie;
     AnyChartView ACV_bar;
 
-    //Valeur à changer avec les données de la db
-    //************ START ****************
-    /*String[] months = {"janvier","fevrier","mars"};
-    int[] earnings = {500,800,2000};*/
-
-    double[] earningsJar = {100,200,300};
-    String[] nameJar = {"vacance","vetement","nourriture"};
-    //************ END ****************
+    double[] earningsJar;
+    String[] nameJar;
 
     public SyntheseFragment() {
         // Required empty public constructor
@@ -64,9 +58,9 @@ public class SyntheseFragment extends Fragment {
         APIlib.getInstance().setActiveAnyChartView(ACV_bar);
         setupBarGraph();*/
 
-        ACV_pie= view.findViewById(R.id.circle_graph);
+        /*ACV_pie= view.findViewById(R.id.circle_graph);
         APIlib.getInstance().setActiveAnyChartView(ACV_pie);
-        setupCircleGraph();
+        setupCircleGraph();*/
 
         return view;
     }
@@ -81,13 +75,20 @@ public class SyntheseFragment extends Fragment {
     public void setupCircleGraph(){
 
         Pie pie = AnyChart.pie();
-        List<DataEntry> dataEntries = new ArrayList<>();
+        final List<DataEntry> dataEntries = new ArrayList<>();
+        JarRepository jarRepository = new JarRepository();
+        jarRepository.query(getSharedToken()).observe(getViewLifecycleOwner(), new Observer<List<Jar>>() {
+            @Override
+            public void onChanged(List<Jar> jars) {
+                for(Jar jar : jars)
+                {
+                    dataEntries.add(new ValueDataEntry(jar.getName(),jar.getBalance()));
+                }
+                Log.i("graph", "onChanged: jars: " + jars);
+            }
+        });
 
-        for(int i=0;i< 3;i++)
-        {
-            dataEntries.add(new ValueDataEntry(nameJar[i],earningsJar[i]));
-        }
-
+        Log.i("graph", "setupCircleGraph: " + dataEntries.toString());
         pie.data(dataEntries);
         pie.title("Répartition des jars");
         ACV_pie.setChart(pie);
