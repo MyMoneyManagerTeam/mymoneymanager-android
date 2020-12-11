@@ -87,11 +87,8 @@ public class EnvoyerFragment extends Fragment {
         return view;
     }
 
-<<<<<<< Updated upstream
     private void executeTransaction(String receiverId, String receiverName, double amount) {
-=======
-    private void executeTransaction(String receiverId,final String receiverName, double amount) {
->>>>>>> Stashed changes
+
         TransactionItem newTransaction = new TransactionItem(null,getEmitterId(),receiverId, amount,null, "Description",getEmitterName(),receiverName);
 
         TransactionRepository transactionRepository = new TransactionRepository();

@@ -67,8 +67,8 @@ public class AboutOneJarFragment extends EspaceFragment implements View.OnClickL
         etGoal.setText(Double.toString(currentJar.getMax()));
         pgGoal.setMax((int) currentJar.getMax());
         pgGoal.setProgress((int) currentJar.getBalance());
-        int percentage = (int) (currentJar.getMax() / currentJar.getBalance());
-        txtPercentage.setText(percentage +"%");
+        double percentage = (currentJar.getBalance() / currentJar.getMax())*100;
+        txtPercentage.setText((int)percentage +"%");
 
         Button b = (Button) view.findViewById(R.id.btnDelete);
         b.setOnClickListener(this);
@@ -81,17 +81,19 @@ public class AboutOneJarFragment extends EspaceFragment implements View.OnClickL
         switch (v.getId()) {
             case R.id.btnDelete:
                 deleteJar();
+                closeDial();
                 break;
             case R.id.btnSave:
                 updateJar();
                 break;
         }
+
     }
 
     public void updateJar()
     {
         Jar newUpdatedJar = new Jar(currentJar.getJar_id(), currentJar.getOwner(), etDescription.getText().toString(),etName.getText().toString(), (int) currentJar.getMax(), (int) currentJar.getBalance());
-        jarRepository.update(getUserTokenStatic(), newUpdatedJar).observe((LifecycleOwner) getMyActivity(), new Observer<Jar>() {
+        jarRepository.update(getUserTokenStatic(), newUpdatedJar).observe(getMyActivity(), new Observer<Jar>() {
             @Override
             public void onChanged(Jar jar) {
                 Log.i("Jar", "Updated: "+ jar );
@@ -102,10 +104,10 @@ public class AboutOneJarFragment extends EspaceFragment implements View.OnClickL
     public void deleteJar()
     {
         JarRepository jarRepository = new JarRepository();
-        jarRepository.delete(getUserTokenStatic(),currentJar.getJar_id()).observe((LifecycleOwner) getMyActivity(), new Observer<Jar>() {
+        jarRepository.delete(getUserTokenStatic(),currentJar.getJar_id()).observe(getMyActivity(), new Observer<Jar>() {
             @Override
             public void onChanged(Jar jar) {
-                Log.i("Jar", "Deleted: "+ jar);
+                Log.i("Jar", "Deleted: "+ jar.toString());
             }
         });
     }

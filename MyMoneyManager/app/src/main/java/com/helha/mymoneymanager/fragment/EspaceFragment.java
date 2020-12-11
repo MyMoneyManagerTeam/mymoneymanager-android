@@ -13,6 +13,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
 import android.util.AttributeSet;
@@ -45,7 +46,8 @@ public class EspaceFragment extends Fragment {
 
     private static Jar currentJar;
     private static String userToken;
-    private static Activity myActivity;
+    private static LifecycleOwner myActivity;
+    private static Dialog fbDialogue;
 
     public EspaceFragment() {
         // Required empty public constructor
@@ -90,7 +92,7 @@ public class EspaceFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_espace, container, false);
         SharedPreferences preferences = getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
         userToken = preferences.getString("TOKEN", "No Token");;
-        myActivity = this.getActivity();
+        myActivity = this.getViewLifecycleOwner();
 
         final TextView tvValueAccount;
         JarRepository jarRepository = new JarRepository();
@@ -126,7 +128,7 @@ public class EspaceFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 currentJar = jars.get(position);
-                Dialog fbDialogue = new Dialog(getActivity(), android.R.style.Theme_Black_NoTitleBar);
+                fbDialogue = new Dialog(getActivity(), android.R.style.Theme_Black_NoTitleBar);
                 fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(245, 254, 254, 254)));
                 View viewOneJar = inflater.inflate(R.layout.dialoginespaceforonejar, container, false);
                 fbDialogue.setContentView(viewOneJar);
@@ -147,8 +149,19 @@ public class EspaceFragment extends Fragment {
         return userToken;
     }
 
-    public static Activity getMyActivity() {
+    public static LifecycleOwner getMyActivity() {
         return myActivity;
     }
+
+    public void closeDial()
+    {
+        fbDialogue.hide();
+        EspaceFragment fg = new EspaceFragment();
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.syntheseFragment, fg)
+                .commit();
+    }
+
 }
 

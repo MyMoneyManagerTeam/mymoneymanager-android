@@ -78,7 +78,7 @@ public class JarRepository {
         getJarService().delete(token, jarId).enqueue(new Callback<ResponseBody>(){
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.i("Jar", response.body().toString());
+
             }
 
             @Override
