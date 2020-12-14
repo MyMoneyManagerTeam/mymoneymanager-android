@@ -49,5 +49,5 @@
         android:id="@+id/ajoutJarFragment"
         android:name="com.helha.mymoneymanager.fragment.AddJarFragment"
         android:label="fragment_add_jar"
-        tools:layout="@layout/fragment_add_jar" />
+        tools:layout="@layout/activity_add_jar" />
 </navigation>
