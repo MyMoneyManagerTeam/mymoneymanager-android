@@ -32,6 +32,7 @@ public class AddJarActivity extends AppCompatActivity {
         et_description_jar = findViewById(R.id.etDescriptionJar);
         et_balance_jar = findViewById(R.id.etBalanceJar);
         btn_create_jar = findViewById(R.id.btn_create_jar);
+
     }
 
 
@@ -45,6 +46,8 @@ public class AddJarActivity extends AppCompatActivity {
                 Log.i("addJar", "onChanged: "+jar);
             }
         });
+
+        finish();
     }
 
     private String getToken()

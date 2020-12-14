@@ -2,10 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentEspace"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.helha.mymoneymanager.fragment.EspaceFragment"
-    android:id="@+id/fragmentEspace">
+    tools:context="com.helha.mymoneymanager.fragment.EspaceFragment">
+
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -60,15 +62,30 @@
             android:fastScrollEnabled="false"
             android:focusable="true"
             android:numColumns="2"
-            android:overScrollMode="ifContentScrolls">
+            android:overScrollMode="ifContentScrolls"></GridView>
 
-        </GridView>
+
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/iv_addjar"
+        android:layout_width="80dp"
+        android:layout_height="212dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginTop="500dp"
+        android:src="@drawable/ic_action_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/aboutOneJar_fragment_container"
+        app:layout_constraintTop_toTopOf="parent"/>
     <FrameLayout
         android:id="@+id/aboutOneJar_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 

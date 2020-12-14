@@ -14,8 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.helha.mymoneymanager.AddJarActivity;
 import com.helha.mymoneymanager.JarManagerActivity;
 import com.helha.mymoneymanager.R;
 
@@ -39,6 +41,7 @@ public class EspaceFragment extends Fragment {
     private JarAdapter jarAdapter;
     private GridView gvJar;
     private String userToken;
+    private ImageView iv_addjar;
 
     public EspaceFragment() {
         // Required empty public constructor
@@ -77,6 +80,14 @@ public class EspaceFragment extends Fragment {
         });
 
         loadMySpaces();
+
+        iv_addjar = view.findViewById(R.id.iv_addjar);
+        iv_addjar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GotoAddJar(v);
+            }
+        });
 
         return view;
     }
@@ -122,6 +133,11 @@ public class EspaceFragment extends Fragment {
     public void onStop() {
         super.onStop();
         shouldRefreshOnResume = true;
+    }
+
+    public void GotoAddJar(View v){
+        Intent intent = new Intent(getActivity(), AddJarActivity.class);
+        startActivity(intent);
     }
 }
 
