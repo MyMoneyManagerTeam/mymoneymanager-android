@@ -1,6 +1,8 @@
 package model.jar;
 
-public class Jar {
+import java.io.Serializable;
+
+public class Jar implements Serializable {
     String id;
     String owner;
     String description;

@@ -1,37 +1,26 @@
 package com.helha.mymoneymanager.fragment;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.helha.mymoneymanager.JarManagerActivity;
 import com.helha.mymoneymanager.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import model.accounts.Accounts;
 import model.jar.Jar;
@@ -44,15 +33,16 @@ import repository.JarRepository;
  */
 public class EspaceFragment extends Fragment {
 
-    private static Jar currentJar;
-    private static String userToken;
-    private static LifecycleOwner myActivity;
-    private static Dialog fbDialogue;
+    private final List<Jar> jars = new ArrayList<>();
+    private boolean shouldRefreshOnResume = false;
+    private JarRepository jarRepository = new JarRepository();
+    private JarAdapter jarAdapter;
+    private GridView gvJar;
+    private String userToken;
 
     public EspaceFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,51 +50,23 @@ public class EspaceFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
-
-        FragmentManager fm = getFragmentManager();
-
-        Fragment xmlFragment = fm.findFragmentById(R.id.fragment_aboutOneJar);
-        if (xmlFragment != null) {
-            fm.beginTransaction().remove(xmlFragment).commit();
-        }
-
-        super.onDestroyView();
-    }
-
-
-    @Override
-    public void onInflate(Activity activity, AttributeSet attrs,
-                          Bundle savedInstanceState) {
-
-        FragmentManager fm = getFragmentManager();
-        if (fm != null) {
-            fm.beginTransaction().remove(this).commit();
-        }
-
-        super.onInflate(getActivity(), attrs, savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-
-        final List<Jar> jars = new ArrayList<>();
         View view = inflater.inflate(R.layout.fragment_espace, container, false);
-        SharedPreferences preferences = getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
-        userToken = preferences.getString("TOKEN", "No Token");;
-        myActivity = this.getViewLifecycleOwner();
 
-        final TextView tvValueAccount;
-        JarRepository jarRepository = new JarRepository();
+        SharedPreferences preferences = getActivity().getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
+        userToken = preferences.getString("TOKEN", "No Token");
+
         //Déclaration et initialisation
         Accounts accounts;
         AccountRepository accountRepository = new AccountRepository();
+
+        final TextView tvValueAccount;
+
         tvValueAccount = view.findViewById(R.id.tv_value_account);
-        GridView gvJar = view.findViewById(R.id.gv_jars);
-        final JarAdapter jarAdapter = new JarAdapter(getContext(), R.id.gv_jars, jars);
+        gvJar = view.findViewById(R.id.gv_jars);
+
+        jarAdapter = new JarAdapter(getContext(), R.id.gv_jars, jars);
         gvJar.setAdapter(jarAdapter);
-
-
 
         //Actualisation du getBalance de mon compte.
         accountRepository.get(userToken).observe(this.getViewLifecycleOwner() , new Observer<Accounts>() {
@@ -114,10 +76,20 @@ public class EspaceFragment extends Fragment {
             }
         });
 
+        loadMySpaces();
+
+        return view;
+    }
+
+    public void loadMySpaces(){
+
+        gvJar.setAdapter(jarAdapter);
+
         //Chargement de mes jars
         jarRepository.query(userToken).observe(this.getViewLifecycleOwner(), new Observer<List<Jar>>() {
             @Override
             public void onChanged(List<Jar> loadedJars) {
+                jars.clear();
                 jars.addAll(loadedJars);
                 jarAdapter.notifyDataSetChanged();
             }
@@ -127,41 +99,29 @@ public class EspaceFragment extends Fragment {
         gvJar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                currentJar = jars.get(position);
-                fbDialogue = new Dialog(getActivity(), android.R.style.Theme_Black_NoTitleBar);
-                fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(245, 254, 254, 254)));
-                View viewOneJar = inflater.inflate(R.layout.dialoginespaceforonejar, container, false);
-                fbDialogue.setContentView(viewOneJar);
-                fbDialogue.setCancelable(true);
-                fbDialogue.show();
+                Jar currentJar = jars.get(position);
+                Intent intent = new Intent(getActivity(), JarManagerActivity.class);
+                intent.putExtra("Jar", currentJar);
+                startActivity(intent);
             }
         });
-
-        return view;
     }
 
-    public Jar getCurrentJar() {
-        return currentJar;
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Check should we need to refresh the fragment
+        if(shouldRefreshOnResume){
+            Log.i("Jar","Je suis revenu aux fragments");
+            shouldRefreshOnResume = false;
+            loadMySpaces();
+        }
     }
 
-
-    public String getUserTokenStatic() {
-        return userToken;
+    @Override
+    public void onStop() {
+        super.onStop();
+        shouldRefreshOnResume = true;
     }
-
-    public static LifecycleOwner getMyActivity() {
-        return myActivity;
-    }
-
-    public void closeDial()
-    {
-        fbDialogue.hide();
-        EspaceFragment fg = new EspaceFragment();
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.syntheseFragment, fg)
-                .commit();
-    }
-
 }
 
