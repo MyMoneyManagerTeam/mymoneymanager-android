@@ -2,7 +2,8 @@
 
 <ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/fragmentSynthese">
 
 
 
@@ -14,7 +15,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_title_synthèse"
+            android:id="@+id/tv_title_synthese"
             android:layout_width="256dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -45,6 +45,7 @@ public class SignInActivity extends AppCompatActivity {
 
                             //accès à l'activité Home
                             GoToActivityHome(user);
+                            Log.i("connexion", "onChanged: c'est ok");
                             authenticateRepository.testToken(user.getJWTBearer());
                             storeToken(user);
 

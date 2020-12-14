@@ -11,6 +11,9 @@
             android:id="@+id/espaceFragment"
             android:title="Espaces" />
         <item
+            android:id="@+id/ajoutJarFragment"
+            android:title="Ajouter une Jar"/>
+        <item
             android:id="@+id/envoyerFragment"
             android:title="Envoyer"/>
         <item

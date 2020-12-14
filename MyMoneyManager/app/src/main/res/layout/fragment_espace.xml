@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.helha.mymoneymanager.fragment.EspaceFragment">
+    tools:context="com.helha.mymoneymanager.fragment.EspaceFragment"
+    android:id="@+id/fragmentEspace">
 
     <LinearLayout
         android:id="@+id/linearLayout"

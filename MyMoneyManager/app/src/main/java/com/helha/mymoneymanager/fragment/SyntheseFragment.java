@@ -37,9 +37,6 @@ public class SyntheseFragment extends Fragment {
     AnyChartView ACV_pie;
     AnyChartView ACV_bar;
 
-    double[] earningsJar;
-    String[] nameJar;
-
     public SyntheseFragment() {
         // Required empty public constructor
     }

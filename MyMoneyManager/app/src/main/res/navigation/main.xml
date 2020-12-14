@@ -45,4 +45,9 @@
         android:name="com.helha.mymoneymanager.fragment.AboutOneJarFragment"
         android:label="About one Jar"
         tools:layout="@layout/fragment_about_one_jar"/>
+    <fragment
+        android:id="@+id/ajoutJarFragment"
+        android:name="com.helha.mymoneymanager.fragment.AddJarFragment"
+        android:label="fragment_add_jar"
+        tools:layout="@layout/fragment_add_jar" />
 </navigation>
