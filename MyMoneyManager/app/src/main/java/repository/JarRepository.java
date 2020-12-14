@@ -66,7 +66,8 @@ public class JarRepository {
 
             @Override
             public void onFailure(Call<Jar> call, Throwable t) {
-                Log.i("Jar","Fail on create: " + t.getMessage());
+                Log.i("Jar","Fail on update: " + t.getMessage());
+                Log.i("Jar","Fail on update: " + t.getCause());
             }
         });
         return mutableLiveData;

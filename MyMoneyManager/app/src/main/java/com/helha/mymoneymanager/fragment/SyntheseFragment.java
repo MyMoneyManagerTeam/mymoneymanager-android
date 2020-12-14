@@ -79,13 +79,9 @@ public class SyntheseFragment extends Fragment {
             public void onChanged(List<Jar> jars) {
                 for(Jar jar : jars)
                 {
-                    Log.i("graph", "onChanged: jar" + jar);
                     ValueDataEntry value = new ValueDataEntry(jar.getName(),jar.getBalance());
-                    Log.i("graph", "setupCircleGraph: value = " + value.toString());
                     dataEntries.add(value);
                 }
-                Log.i("graph", "onChanged: jars: " + jars);
-                Log.i("graph", "setupCircleGraph: dataEntries: " + dataEntries.toString());
                 pie.data(dataEntries);
                 pie.title("Répartition des jars");
                 ACV_pie.setChart(pie);
