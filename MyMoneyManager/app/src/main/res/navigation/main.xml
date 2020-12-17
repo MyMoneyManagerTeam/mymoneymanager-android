@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/syntheseFragment"
         android:name="com.helha.mymoneymanager.fragment.SyntheseFragment"
-        android:label="Synthese"
+        android:label="Dashboard"
         tools:layout="@layout/fragment_synthese" />
     <fragment
         android:id="@+id/envoyerFragment"
@@ -40,14 +40,4 @@
         android:name="com.helha.mymoneymanager.fragment.DeconnexionFragment"
         android:label="Deconnexion"
         tools:layout="@layout/fragment_deconnexion"/>
-    <fragment
-        android:id="@+id/aboutOneJarFragment"
-        android:name="com.helha.mymoneymanager.fragment.AboutOneJarFragment"
-        android:label="About one Jar"
-        tools:layout="@layout/fragment_about_one_jar"/>
-    <fragment
-        android:id="@+id/ajoutJarFragment"
-        android:name="com.helha.mymoneymanager.fragment.AddJarFragment"
-        android:label="fragment_add_jar"
-        tools:layout="@layout/activity_add_jar" />
 </navigation>

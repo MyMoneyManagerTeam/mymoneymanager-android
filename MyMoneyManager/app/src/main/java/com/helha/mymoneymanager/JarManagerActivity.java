@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,14 +60,24 @@ public class JarManagerActivity extends AppCompatActivity {
 
     public void updateJar(View view)
     {
-        Jar newUpdatedJar = new Jar(currentJar.getJar_id(), currentJar.getOwner(), etDescription.getText().toString(), etName.getText().toString(), Float.parseFloat(etGoal.getText().toString()), Float.parseFloat(etBalance.getText().toString()));
-        jarRepository.update(userToken, newUpdatedJar).observe(this, new Observer<Jar>() {
-            @Override
-            public void onChanged(Jar jar) {
-                Log.i("Jar", "Updated: "+ jar );
-            }
-        });
-        finish();
+        String newDescription = etDescription.getText().toString();
+        String newName = etName.getText().toString();
+        String newLimit = etGoal.getText().toString();
+        String newBalance = etBalance.getText().toString();
+
+        if(!newDescription.isEmpty() && !newName.isEmpty() && !newLimit.isEmpty() && !newBalance.isEmpty()) {
+            Jar newUpdatedJar = new Jar(currentJar.getJar_id(), currentJar.getOwner(), newDescription, newName, Float.parseFloat(newLimit), Float.parseFloat(newBalance));
+            jarRepository.update(userToken, newUpdatedJar).observe(this, new Observer<Jar>() {
+                @Override
+                public void onChanged(Jar jar) {
+                    Log.i("Jar", "Updated: " + jar);
+                }
+            });
+            finish();
+        }else{
+            Toast toast = Toast.makeText(this, "Veuillez remplir correctement tous les champs", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     public void deleteJar(View view)

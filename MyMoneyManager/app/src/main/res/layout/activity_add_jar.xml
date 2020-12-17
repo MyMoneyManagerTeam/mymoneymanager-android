@@ -12,15 +12,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="88dp"
         android:layout_marginEnd="100dp"
         android:ems="10"
-        android:hint="Balance"
+        android:hint="Montant"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Taillejar" />
+        app:layout_constraintTop_toBottomOf="@+id/etDescriptionJar" />
 
     <EditText
         android:id="@+id/etNameJar"
@@ -41,14 +41,13 @@
         android:id="@+id/tv_Taillejar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="105dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="228dp"
-        android:text="Taille de la jar:"
+        android:text="Limite jar"
+        app:layout_constraintBottom_toTopOf="@+id/etBalanceJar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.283"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDescriptionJar" />
+        app:layout_constraintTop_toBottomOf="@+id/etDescriptionJar"
+        app:layout_constraintVertical_bias="0.576" />
 
     <TextView
         android:id="@+id/tv_descriptionjar"

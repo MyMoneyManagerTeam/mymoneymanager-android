@@ -1,5 +1,6 @@
 package com.helha.mymoneymanager;
 
+import androidx.annotation.ContentView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,7 +55,5 @@ public class HomeActivity extends AppCompatActivity {
                 textTitle.setText(destination.getLabel());
             }
         });
-
-
     }
 }

@@ -6,12 +6,15 @@ import androidx.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 
 import apiServices.LoginRequest;
@@ -29,6 +32,22 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+
+
+        /*String pkgName = getApplicationContext().getPackageName();
+        int resID = getApplicationContext().getResources().getIdentifier("mountainvideo", "raw", pkgName);
+        Uri uri = Uri.parse("android.resource://" + this.getApplicationContext().getPackageName() + "/"+ resID);
+
+        VideoView simpleVideoView = (VideoView) findViewById(R.id.videoView); // initiate a video view
+        simpleVideoView.setVideoURI(uri);
+        simpleVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+            }
+        });
+        simpleVideoView.start();*/
 
         validationButton = findViewById(R.id.btn_validation);
         et_username = findViewById(R.id.et_username);
@@ -71,6 +90,7 @@ public class SignInActivity extends AppCompatActivity {
         editor.putString("TOKEN", user.getJWTBearer());
         editor.putString("USERID",user.getId());
         editor.putString("USERNAME",user.getLastName());
+        editor.putString("MAIL",user.getMail());
         Log.i("qrcode", "SignInActivity: "+user.getLastName());
         editor.apply();
     }
