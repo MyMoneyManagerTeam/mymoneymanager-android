@@ -154,8 +154,5 @@ public class User {
                 '}';
     }
 
-    public String getJWTBearer()
-    {
-        return "Bearer " + getToken();
-    }
+    public String getJWTBearer() { return "Bearer " + getToken(); }
 }

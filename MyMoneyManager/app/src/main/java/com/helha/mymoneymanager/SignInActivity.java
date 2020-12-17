@@ -67,7 +67,6 @@ public class SignInActivity extends AppCompatActivity {
                             Log.i("connexion", "onChanged: c'est ok");
                             authenticateRepository.testToken(user.getJWTBearer());
                             storeToken(user);
-
                         } else {
                             Toast toast = Toast.makeText(SignInActivity.this.getApplicationContext(), "Mail/Password incorrect", Toast.LENGTH_LONG);
                             toast.show();

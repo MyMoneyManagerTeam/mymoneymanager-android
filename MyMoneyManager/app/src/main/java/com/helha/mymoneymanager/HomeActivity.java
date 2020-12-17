@@ -55,5 +55,19 @@ public class HomeActivity extends AppCompatActivity {
                 textTitle.setText(destination.getLabel());
             }
         });
+
+        View header = navigationView.getHeaderView(0);
+
+        TextView txtmMail = header.findViewById(R.id.txtMail);
+
+        txtmMail.setText(getSharedMail());
+
+    }
+
+    public String getSharedMail() {
+        //Reception du SHARED PREFERENCE disponible et recopie du userToken dans le fragment.
+        SharedPreferences preferences = this.getSharedPreferences("USERTOKENSHARED", Context.MODE_PRIVATE);
+        return preferences.getString("MAIL", "ERROR");
     }
 }
+

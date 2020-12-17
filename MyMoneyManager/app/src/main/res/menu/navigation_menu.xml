@@ -28,9 +28,6 @@
     <item android:title="Options">
         <menu>
             <item
-                android:id="@+id/parametreFragment"
-                android:title="Réglages"/>
-            <item
                 android:id="@+id/deconnexionFragment"
                 android:title="Déconnexion"/>
         </menu>

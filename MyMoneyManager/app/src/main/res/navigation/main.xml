@@ -26,11 +26,6 @@
         android:label="Historique"
         tools:layout="@layout/fragment_historique" />
     <fragment
-        android:id="@+id/parametreFragment"
-        android:name="com.helha.mymoneymanager.fragment.ParametreFragment"
-        android:label="Réglages"
-        tools:layout="@layout/fragment_parametre" />
-    <fragment
         android:id="@+id/espaceFragment"
         android:name="com.helha.mymoneymanager.fragment.EspaceFragment"
         android:label="Espaces"
